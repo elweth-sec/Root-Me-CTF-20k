@@ -1,0 +1,7 @@
+Flask
+requests
+Flask-SQLAlchemy
+Flask-Bcrypt
+uuid
+pyjwt
+selenium

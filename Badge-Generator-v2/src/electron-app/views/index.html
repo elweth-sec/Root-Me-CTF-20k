@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Electron Pseudo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #result {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-top: 20px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        #user-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #007bff;
+            border-radius: 50%;
+            width: 100px; 
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 3px;
+            box-sizing: border-box;
+            display: none;
+        }
+
+        #user-image {
+            width: 94px;
+            height: 94px;
+            border-radius: 50%;
+            display: block;
+        }
+
+        #user-bio {
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+            line-height: 1.5;
+            display: none;
+        }
+
+        #submit {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .user-info div {
+            flex: 1;
+            text-align: center;
+            margin: 5px;
+            min-width: 80px;
+        }
+
+        .user-info h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .gras {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Root-Me Badge Creator</h1>
+    <input type="text" id="pseudo" placeholder="Enter your nickname" />
+    <button id="submit">Get the badge!</button>
+    <div id="result">
+        <div id="user-image-container">
+            <img id="user-image" src="" alt="Badge Image" />
+        </div>
+        <div id="user-bio"></div>
+        <div class="user-info">
+            <div>
+                <h3 id="user-rank">N/A</h3>
+                <span class="gras">Place</span>
+            </div>
+            <div>
+                <h3 id="user-points">N/A</h3>
+                <span class="gras">Points</span>
+            </div>
+            <div>
+                <h3 id="user-challenges">N/A</h3>
+                <span class="gras">Challenges</span>
+            </div>
+            <div>
+                <h3 id="user-compromissions">N/A</h3>
+                <span class="gras">Compromissions</span>
+            </div>
+        </div>
+    </div>
+    <script src="../renderer.js"></script>
+</body>
+</html>

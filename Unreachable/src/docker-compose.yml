@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  backend_flask:
+    build:
+      context: ./back-end
+    networks:
+      - app_network
+      
+  frontend:
+    build:
+      context: ./front-end/app
+    networks:
+      - app_network
+
+  nginx:
+    build:
+      context: ./front-end/nginx
+    ports:
+      - "5002:8000"
+    depends_on:
+      - frontend 
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

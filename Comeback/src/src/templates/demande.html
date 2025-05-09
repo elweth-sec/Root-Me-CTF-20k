@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Request Details{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Request Details</h1>
+        
+        <div id="requestDetails" class="border p-4 rounded shadow-sm">
+        </div>
+
+        <a href="/demandes" class="btn btn-secondary mt-3">Back</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            const requestDetails = document.getElementById('requestDetails');
+
+            function isValidUUID(uuid) {
+                const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
+                return uuidRegex.test(uuid);
+            }
+            
+            if ( id && isValidUUID(id)) {
+                fetch(`/api/demande/${id}`)
+                    .then(response => response.text())
+                    .then(text => {
+                        try {
+                            const parsed = JSON.parse(text);
+
+                            requestDetails.innerHTML = '';
+
+                            if (parsed.title) {
+                                const titleElement = document.createElement('h2');
+                                titleElement.textContent = 'Title: '+ parsed.title;
+                                titleElement.classList.add('mb-3');
+
+                                const descriptionElement = document.createElement('p');
+                                descriptionElement.textContent = 'Description: '+ parsed.description;
+                                descriptionElement.classList.add('mb-4');
+
+                                requestDetails.appendChild(titleElement);
+                                requestDetails.appendChild(descriptionElement);
+
+                                if (parsed.file_uuid) {
+                                    const downloadLink = document.createElement('a');
+                                    downloadLink.href = `/api/files/${parsed.file_uuid}`;
+                                    downloadLink.className = 'btn btn-info';
+                                    downloadLink.textContent = 'Download File';
+                                    downloadLink.classList.add('d-block', 'mt-3');
+                                    requestDetails.appendChild(downloadLink);
+                                }
+                            } else {
+                                requestDetails.innerHTML = '<p class="text-danger">Request not found.</p>';
+                            }
+                        } catch (error) {
+                            requestDetails.innerHTML = `<p class="text-danger">Error parsing JSON: ${text} -> ${error.message}</p>`;
+                        }
+                    })
+                    .catch(error => {
+                        requestDetails.innerHTML = `<p class="text-danger">Error fetching data: ${error.message}</p>`;
+                    });
+            } else {
+                requestDetails.innerHTML = '<p class="text-danger">Request ID is missing or is not valid UUID.</p>';
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,6 @@
+Flask
+requests
+Flask-SQLAlchemy
+Flask-Bcrypt
+uuid
+xhtml2pdf

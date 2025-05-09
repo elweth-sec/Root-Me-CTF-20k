@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      context: .  
+    ports:
+      - "5004:5000"
+    environment:
+      - FLASK_ENV=development  

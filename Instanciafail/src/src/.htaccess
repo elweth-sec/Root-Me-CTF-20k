@@ -1,0 +1,4 @@
+<Files "backup.zip">
+    Order allow,deny
+    Deny from all
+</Files>

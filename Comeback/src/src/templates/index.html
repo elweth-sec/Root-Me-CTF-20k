@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Help Desk Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to the Help Desk</h1>
+<p>We are here to assist you with any issues you may encounter with your hardware, account, or other concerns. Our support team is dedicated to resolving your problems promptly and efficiently.</p>
+
+<h2>How It Works</h2>
+<p>Opening a support ticket is the first step in getting help. Here’s how our support system works:</p>
+<ol>
+    <li><strong>Open a Support Ticket:</strong> Click the "Open a New Support Ticket" button to fill out a form detailing your issue. Please provide as much information as possible to help us understand and address your problem.</li>
+    <li><strong>Ticket Review:</strong> Once submitted, our support team will review your ticket. We may contact you for additional details or to provide updates on the progress of your request.</li>
+    <li><strong>Resolution:</strong> We will work to resolve your issue as quickly as possible. You will receive updates via email or through your support portal.</li>
+    <li><strong>Track Your Ticket:</strong> You can track the status of your ticket and view any responses from our support team by visiting the "View My Support Tickets" page.</li>
+</ol>
+
+<p>Our goal is to provide you with the best support experience. If you have any questions or need further assistance, don’t hesitate to contact us through the support portal.</p>
+
+<!-- Links to open a new support ticket and view existing tickets -->
+<a href="{{ url_for('demandes') }}" class="btn btn-primary">Open a New Support Ticket</a>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Root-Me - Badge Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Badge Generator</h1>
+        <p class="description">I've created an application to generate Root-Me badges for future job interviews! You can download the application <a href="{{ url_for('static', filename='badge-creator_2.0.0_amd64.deb') }}">here</a>.</p>
+        <form method="post">
+            <div class="form-group">
+                <label for="pseudo">Enter your pseudo:</label>
+                <input type="text" id="pseudo" name="pseudo" required>
+            </div>
+            {% if sent %}
+                <div class="notification success">
+                    <strong>Wow!</strong> Your profile is so nice!
+                </div>
+            {% endif %}
+            <br />
+            <button type="submit">Generate Badge</button>
+        </form>
+    </div>
+</body>
+</html>

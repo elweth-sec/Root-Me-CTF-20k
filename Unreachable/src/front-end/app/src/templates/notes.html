@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body class="background-gray">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="text-center">Notes</h1>
+            {% if user_id == 1 %}
+                <a href="/admin" class="text-right">Admin</a>
+            {% endif %}
+        </div>
+        <form action="/submit_note" method="POST">
+            <div class="form-group">
+                <label for="title">Titre de la note:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Contenu de la note:</label>
+                <textarea class="form-control" id="content" name="content" required></textarea>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="public" name="public">
+                <label class="form-check-label" for="public">Note publique</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Créer une note</button>
+        </form>
+
+        <hr>
+
+        <h2 class="mt-5">Mes Notes:</h2>
+        <ul class="list-group">
+            {% for note in notes %}
+                <li class="list-group-item">
+                    <strong>{{ note.title }}</strong>: {{ note.content }}
+                    {% if note.public %}
+                        - <a href="/note/{{ note.id }}/show">Obtenir le lien de partage</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="container text-center mt-3">
+        <small><a href="/logout">Déconnexion</a></small>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "name": "badge-creator",
+  "version": "2.0.0",
+  "description": "Root-me Badge Creator - v2",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10"
+  },
+  "bin": {
+    "badge-creator": "./launch.sh"
+  },
+  "devDependencies": {
+    "electron": "^23.1.0",
+    "electron-builder": "~22.10.5"
+  },
+  "author": {
+    "name": "Elweth",
+    "email": "elweth@protonmail.com"
+  },
+  "homepage": "https://www.root-me.org/",
+  "build": {
+    "appId": "com.badge-creator.desktop",
+    "productName": "badge-creator",
+    "files": [
+      "main.js",
+      "renderer.js",
+      "package.json",
+      "views/**/*",
+      "assets/**/*",
+      "launch.sh"
+    ],
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "category": "Utility",
+      "icon": "assets/image.png",
+      "maintainer": "Elweth <elweth@protonmail.com>"
+    }
+  }
+}

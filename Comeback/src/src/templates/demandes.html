@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}My requests{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My requests</h1>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#newRequestModal">New request</button>
+    </div>
+    
+    <!-- Table for displaying requests -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="requestsList">
+            <!-- Rows will be inserted here -->
+        </tbody>
+    </table>
+
+    <!-- Modal for new request -->
+    <div class="modal fade" id="newRequestModal" tabindex="-1" role="dialog" aria-labelledby="newRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newRequestModalLabel">New request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newRequestForm">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">File</label>
+                            <input type="file" class="form-control-file" id="file" name="file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit to Help Desk</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchRequests();
+
+            function fetchRequests() {
+                fetch('/api/demandes')
+                    .then(response => response.json())
+                    .then(data => {
+                        const requestsList = document.getElementById('requestsList');
+                        requestsList.innerHTML = ''; // Clear existing content
+                        data.forEach(request => {
+                            // Create a new row
+                            const row = document.createElement('tr');
+
+                            // Create cells for title and description
+                            const titleCell = document.createElement('td');
+                            titleCell.textContent = request.title;
+
+                            const descriptionCell = document.createElement('td');
+                            descriptionCell.textContent = request.description;
+
+                            // Create the "Details" button cell
+                            const actionCell = document.createElement('td');
+                            const viewButton = document.createElement('a');
+                            viewButton.href = `/demande?id=${encodeURIComponent(request.id)}`; // Ensure the ID is properly encoded
+                            viewButton.className = 'btn btn-info';
+                            viewButton.textContent = 'Details';
+                            actionCell.appendChild(viewButton);
+
+                            // Append cells to the row
+                            row.appendChild(titleCell);
+                            row.appendChild(descriptionCell);
+                            row.appendChild(actionCell);
+
+                            // Append row to the table body
+                            requestsList.appendChild(row);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching requests:', error);
+                        const requestsList = document.getElementById('requestsList');
+                        requestsList.innerHTML = '<tr><td colspan="3">Error retrieving requests.</td></tr>';
+                    });
+            }
+
+            document.getElementById('newRequestForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                fetch('/api/requests', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'same-origin'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.msg === 'Request submitted successfully') {
+                        $('#newRequestModal').modal('hide');
+                        fetchRequests();
+                    } else {
+                        alert(data.msg);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting request:', error);
+                    alert('Error submitting the request.');
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Remind Support{% endblock %}
+
+{% block content %}
+<h1>Remind Support</h1>
+<form id="remind-form">
+    <div class="form-group">
+        <label for="url">Your request to the support is too long? <br /><br /> We're sorry... Send us the URL, and an administrator will process your request immediately.</label>
+        <input type="url" class="form-control" id="url" name="url" placeholder="Enter the support URL" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Send Reminder</button>
+</form>
+
+<!-- Conteneur pour le message de succès ou d'erreur -->
+<div id="message" class="mt-3"></div>
+
+<script>
+    document.getElementById('remind-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const url = document.getElementById('url').value;
+        const messageContainer = document.getElementById('message');
+        
+        // Réinitialiser le message
+        messageContainer.innerHTML = '';
+
+        try {
+            const response = await fetch('/api/remind', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+            const result = await response.json();
+            
+            if (response.ok) {
+                // Message de succès
+                messageContainer.innerHTML = `<div class="alert alert-success" role="alert">
+                    Reminder sent successfully!
+                </div>`;
+            } else {
+                // Message d'erreur
+                messageContainer.innerHTML = `<div class="alert alert-danger" role="alert">
+                    ${result.msg || 'Failed to send reminder'}
+                </div>`;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            messageContainer.innerHTML = `<div class="alert alert-danger" role="alert">
+                An error occurred while sending the reminder.
+            </div>`;
+        }
+    });
+</script>
+{% endblock %}
