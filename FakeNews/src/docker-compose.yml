@@ -1,0 +1,11 @@
+services:
+  debian_fakeroot_ssh:
+    build: .
+    container_name: debian_fakeroot_ssh
+    image: debian_fakeroot_ssh
+    ports:
+      - "22222:22"
+    tty: true
+    read_only: true
+    volumes:
+      - /dev/null:/dev/shm  # Monte /dev/null à la place de /dev/shm pour le désactiver

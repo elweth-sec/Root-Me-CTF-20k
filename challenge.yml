@@ -1,0 +1,43 @@
+challenge_information:
+  # challenge title 
+  title: "Fake news"
+  # challenge category
+  category: "Intro"  
+  # challenge description (markdown friendly)
+  description: |
+    You can connect to the service with `ssh user@<ip>` and password 'user'
+    Note: The flag is in /root/flag.txt
+
+    Author: `Elweth`    
+  # challenge points
+  points: 100
+  # hidden or visible -> CTFd only
+  state: "visible" 
+  # standard only, dynamic is not implemented yet -> CTFd only
+  type: "standard"
+  # very easy | easy | medium | hard | very hard
+  difficulty: "easy"
+  # true, false 
+  file: true
+  # false | port number (80, 8001...) 
+  port: 22222 
+  # false | protocol type ("http", "tcp"...)
+  protocol: "tcp" 
+  # shared | unique | none (for files)
+  environment: "shared" 
+  # true | false -> minimum 2 tests (w/o author)
+  tested: false
+
+# leave dict empty if no sources, else put relative path to sources to upload
+sources: [""]
+
+# leave dict empty if not tags
+tags: [] 
+
+flag_information:
+  # static | dynamic -> CTFd only
+  type: "static"
+  # challenge flag
+  flag: "RM{Omg_Fakeroot_is_Fak3???}"
+  # true | false -> CTFd only
+  isCaseSensitive: true
