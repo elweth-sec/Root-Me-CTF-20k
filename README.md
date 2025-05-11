@@ -44,3 +44,9 @@ Writeups & sources of challenges i made for CTF Root-Me 20k.
 - Difficulty: Hard
 - Format: Whitebox
 - TLDR: Server side parameter pollution, 2FA Bypass using servide side path traversal, file read
+- --- 
+[FakeNews](FakeNews/README.md)
+- Category: System
+- Difficulty: Easy
+- Format: Privilege escalation
+- TLDR: SUDO privileges, fakeroot vulnerability
